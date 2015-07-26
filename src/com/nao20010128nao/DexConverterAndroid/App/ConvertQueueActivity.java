@@ -1,13 +1,22 @@
 package com.nao20010128nao.DexConverterAndroid.App;
 import android.app.*;
 import java.util.*;
+import android.os.*;
 
 public class ConvertQueueActivity extends ListActivity implements List<ConvertQueueActivity.ConvertData> {
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		// TODO: Implement this method
+		super.onCreate(savedInstanceState);
+	}
+
 	ArrayList<ConvertData> q=new ArrayList<>();
 	public static class ConvertData {
-		java.lang.Process process;
-		String[] args;
-		String tag;
+		public java.lang.Process process;
+		public String[] args;
+		public String tag;
+		public AsyncTask<String[],Void,Boolean> worker;
 	}
 
 	@Override
