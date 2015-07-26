@@ -168,25 +168,5 @@ public class ConvertQueueActivity extends ListActivity implements List<ConvertQu
 	{
 		// TODO: Implement this method
 		return false;
-	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	
+	}	
 }
