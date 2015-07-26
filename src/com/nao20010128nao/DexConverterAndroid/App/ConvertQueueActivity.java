@@ -2,6 +2,7 @@ package com.nao20010128nao.DexConverterAndroid.App;
 import android.app.*;
 import java.util.*;
 import android.os.*;
+import java.lang.ref.*;
 
 public class ConvertQueueActivity extends ListActivity implements List<ConvertQueueActivity.ConvertData> {
 
@@ -9,9 +10,11 @@ public class ConvertQueueActivity extends ListActivity implements List<ConvertQu
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO: Implement this method
 		super.onCreate(savedInstanceState);
+		activity=this;
 	}
 
-	ArrayList<ConvertData> q=new ArrayList<>();
+	public static ConvertQueueActivity activity=null;
+	static ArrayList<ConvertData> q=new ArrayList<>();
 	public static class ConvertData {
 		public java.lang.Process process;
 		public String[] args;

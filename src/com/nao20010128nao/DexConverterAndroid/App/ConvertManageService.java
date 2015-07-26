@@ -11,4 +11,11 @@ public class ConvertManageService extends ServiceX{
 		// TODO: Implement this method
 		return null;
 	}
+
+	@Override
+	public int onStartCommand(int flags, int startId) {
+		// TODO: Implement this method
+		
+		return super.onStartCommand(flags, startId);
+	}
 }
