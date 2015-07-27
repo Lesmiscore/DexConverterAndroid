@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+	xmlns:android="http://schemas.android.com/apk/res/android">
+	<pref.StartPref
+		android:title="@string/checklist"
+		android:key="checklist"/>
+	<pref.StartPref
+		android:title="@string/newreq"
+		android:key="newreq"/>
+	<!--<pref.StartPref
+		android:title="@string/chgList"
+		android:key="chgList"/>
+	<pref.StartPref
+		android:title="@string/wantUpdate"
+		android:summary="@string/wantUpdate_desc"
+		android:key="wantUpdate"/>-->
+</PreferenceScreen>

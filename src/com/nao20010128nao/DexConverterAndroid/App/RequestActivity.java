@@ -1,8 +1,9 @@
 package com.nao20010128nao.DexConverterAndroid.App;
 import android.preference.*;
 import android.os.*;
+import android.app.*;
 
-public class RequestActivity extends PreferenceActivity {
+public class RequestActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
