@@ -24,7 +24,16 @@ public class ConvertQueueActivity extends ListActivity implements List<ConvertQu
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
 			// TODO: Implement this method
-			return super.getView(position, convertView, parent);
+			if(convertView==null)
+				convertView=getLayoutInflater().inflate(R.layout.queuecomponent,null);
+			TextView from=(TextView)convertView.findViewById(R.id.fromfile);
+			TextView to  =(TextView)convertView.findViewById(R.id.tofile  );
+			ConvertData data=getItem(position);
+			convertView.setTag(data);
+			String[] args=data.args;
+			from.setText(args[args.length-1]);
+			to  .setText(args[args.length-2].substring(9));
+			return convertView;
 		}
 	}
 	
