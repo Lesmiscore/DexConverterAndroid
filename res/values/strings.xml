@@ -7,4 +7,5 @@
 	<string name="output">Output:</string>
 	<string name="multidex">Multi Dex mode</string>
 	<string name="start">Start!</string>
+	<string name="startfailed">Failed to start...</string>
 </resources>

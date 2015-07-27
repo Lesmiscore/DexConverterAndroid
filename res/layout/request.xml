@@ -25,7 +25,8 @@
 			<EditText
 				android:layout_height="wrap_content"
 				android:layout_width="match_parent"
-				android:ems="10"/>
+				android:ems="10"
+				android:id="@+id/input"/>
 
 		</LinearLayout>
 
@@ -55,7 +56,8 @@
 			<EditText
 				android:layout_height="wrap_content"
 				android:layout_width="match_parent"
-				android:ems="10"/>
+				android:ems="10"
+				android:id="@+id/output"/>
 
 		</LinearLayout>
 
@@ -74,7 +76,8 @@
 		<CheckBox
 			android:layout_height="wrap_content"
 			android:layout_width="wrap_content"
-			android:text="@string/multidex"/>
+			android:text="@string/multidex"
+			android:id="@+id/multidex"/>
 
 	</LinearLayout>
 
@@ -86,7 +89,8 @@
 	<Button
 		android:layout_height="wrap_content"
 		android:layout_width="match_parent"
-		android:text="@string/start"/>
+		android:text="@string/start"
+		android:id="@+id/start"/>
 
 </LinearLayout>
 

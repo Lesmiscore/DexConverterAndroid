@@ -3,23 +3,41 @@ import android.app.*;
 import java.util.*;
 import android.os.*;
 import java.lang.ref.*;
+import android.widget.*;
+import android.view.*;
 
 public class ConvertQueueActivity extends ListActivity implements List<ConvertQueueActivity.ConvertData> {
-
+	InternalA la;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO: Implement this method
 		super.onCreate(savedInstanceState);
-		activity=this;
+		setListAdapter(la=new InternalA());
+		activity=new WeakReference<>(this);
 	}
 
-	public static ConvertQueueActivity activity=null;
-	static ArrayList<ConvertData> q=new ArrayList<>();
+	class InternalA extends ArrayAdapter<ConvertData>{
+		public InternalA(){
+			super(ConvertQueueActivity.this,0,ConvertQueueActivity.this);
+		}
+
+		@Override
+		public View getView(int position, View convertView, ViewGroup parent) {
+			// TODO: Implement this method
+			return super.getView(position, convertView, parent);
+		}
+	}
+	
+	public static WeakReference<ConvertQueueActivity> activity=new WeakReference(null);
+	public static ArrayList<ConvertData> q=new ArrayList<>();
+	public static List<ConvertData> list(){
+		return (ConvertQueueActivity.activity==null?ConvertQueueActivity.q:ConvertQueueActivity.activity.get());
+	}
 	public static class ConvertData {
 		public java.lang.Process process;
 		public String[] args;
 		public String tag;
-		public AsyncTask<String[],Void,Boolean> worker;
+		public AsyncTask<ConvertData,Void,Boolean> worker;
 	}
 
 	@Override
@@ -32,12 +50,17 @@ public class ConvertQueueActivity extends ListActivity implements List<ConvertQu
 	public void add(int p1, ConvertQueueActivity.ConvertData p2) {
 		// TODO: Implement this method
 		q.add(p1, p2);
+		la.notifyDataSetChanged();
 	}
 
 	@Override
 	public boolean add(ConvertQueueActivity.ConvertData p1) {
 		// TODO: Implement this method
-		return q.add(p1);
+		try{
+			return q.add(p1);
+		}finally{
+			la.notifyDataSetChanged();
+		}
 	}
 
 	@Override
@@ -61,13 +84,21 @@ public class ConvertQueueActivity extends ListActivity implements List<ConvertQu
 	@Override
 	public boolean removeAll(Collection<?> p1) {
 		// TODO: Implement this method
-		return q.removeAll(p1);
+		try{
+			return q.removeAll(p1);
+		}finally{
+			la.notifyDataSetChanged();
+		}
 	}
 
 	@Override
 	public boolean retainAll(Collection<?> p1) {
 		// TODO: Implement this method
-		return q.retainAll(p1);
+		try{
+			return q.retainAll(p1);
+		}finally{
+			la.notifyDataSetChanged();
+		}
 	}
 
 	@Override
@@ -97,13 +128,21 @@ public class ConvertQueueActivity extends ListActivity implements List<ConvertQu
 	@Override
 	public ConvertQueueActivity.ConvertData remove(int p1) {
 		// TODO: Implement this method
-		return q.remove(p1);
+		try{
+			return q.remove(p1);
+		}finally{
+			la.notifyDataSetChanged();
+		}
 	}
 
 	@Override
 	public ConvertQueueActivity.ConvertData set(int p1, ConvertQueueActivity.ConvertData p2) {
 		// TODO: Implement this method
-		return q.set(p1, p2);
+		try{
+			return q.set(p1,p2);
+		}finally{
+			la.notifyDataSetChanged();
+		}
 	}
 
 	@Override
@@ -115,19 +154,31 @@ public class ConvertQueueActivity extends ListActivity implements List<ConvertQu
 	@Override
 	public boolean remove(Object p1) {
 		// TODO: Implement this method
-		return q.remove(p1);
+		try{
+			return q.remove(p1);
+		}finally{
+			la.notifyDataSetChanged();
+		}
 	}
 
 	@Override
 	public boolean addAll(Collection<? extends ConvertQueueActivity.ConvertData> p1) {
 		// TODO: Implement this method
-		return q.addAll(p1);
+		try{
+			return q.addAll(p1);
+		}finally{
+			la.notifyDataSetChanged();
+		}
 	}
 
 	@Override
 	public boolean addAll(int p1, Collection<? extends ConvertQueueActivity.ConvertData> p2) {
 		// TODO: Implement this method
-		return q.addAll(p1, p2);
+		try{
+			return q.addAll(p1,p2);
+		}finally{
+			la.notifyDataSetChanged();
+		}
 	}
 
 	@Override
