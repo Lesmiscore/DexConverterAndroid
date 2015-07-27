@@ -8,6 +8,7 @@ import android.view.*;
 import java.util.*;
 import java.io.*;
 import android.content.*;
+import android.util.*;
 
 public class RequestActivity extends SmartFindViewActivity {
 	TextView input,output;
@@ -44,6 +45,7 @@ public class RequestActivity extends SmartFindViewActivity {
 					data.process = new ProcessBuilder().
 						command(args).
 						directory(new File(getFilesDir(), "dex")).
+						redirectErrorStream(true).
 						start();
 				} catch (IOException e) {
 					e.printStackTrace();
@@ -55,15 +57,28 @@ public class RequestActivity extends SmartFindViewActivity {
 					public Boolean doInBackground(ConvertQueueActivity.ConvertData... a){
 						java.lang.Process p=(data=a[0]).process;
 						try {
-							p.waitFor();
-						} catch (InterruptedException e) {
-							return false;
+							BufferedReader br=new BufferedReader(new InputStreamReader(p.getInputStream()));
+							String l=null;
+							while((l=br.readLine())!=null){
+								Log.d("ProcessWatchWorker",l);
+							}
+						} catch (Throwable e) {
+							if(checkFinished(p))
+								return false;
 						}
 						return true;
 					}
 					public void onPostExecute(Boolean r){
 						List list=ConvertQueueActivity.list();
 						list.remove(data);
+					}
+					boolean checkFinished(java.lang.Process p){
+						try{
+							p.exitValue();
+							return true;
+						}catch(Throwable e){
+							return false;
+						}
 					}
 				};
 				data.worker.execute(data);
