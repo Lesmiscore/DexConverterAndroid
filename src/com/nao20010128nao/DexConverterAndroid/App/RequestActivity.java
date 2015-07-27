@@ -7,6 +7,7 @@ import android.view.View.*;
 import android.view.*;
 import java.util.*;
 import java.io.*;
+import android.content.*;
 
 public class RequestActivity extends SmartFindViewActivity {
 	TextView input,output;
@@ -26,8 +27,9 @@ public class RequestActivity extends SmartFindViewActivity {
 				String in=input.getText().toString();
 				String out=output.getText().toString();
 				boolean md=multidex.isChecked();
+				new File(getFilesDir(), "dex").mkdir();
 				List<String> args=new ArrayList<>(7);
-				args.add("dalvikvm");
+				args.add("/system/bin/dalvikvm");
 				args.add("-classpath");
 				args.add(getApplicationInfo().sourceDir);
 				args.add("app.Main");
@@ -49,8 +51,9 @@ public class RequestActivity extends SmartFindViewActivity {
 					return;
 				}
 				data.worker=new AsyncTask<ConvertQueueActivity.ConvertData,Void,Boolean>(){
+					ConvertQueueActivity.ConvertData data;
 					public Boolean doInBackground(ConvertQueueActivity.ConvertData... a){
-						java.lang.Process p=a[0].process;
+						java.lang.Process p=(data=a[0]).process;
 						try {
 							p.waitFor();
 						} catch (InterruptedException e) {
@@ -58,10 +61,16 @@ public class RequestActivity extends SmartFindViewActivity {
 						}
 						return true;
 					}
+					public void onPostExecute(Boolean r){
+						List list=ConvertQueueActivity.list();
+						list.remove(data);
+					}
 				};
 				data.worker.execute(data);
 				List toAdd=ConvertQueueActivity.list();
 				toAdd.add(data);
+				finish();
+				startService(new Intent(RequestActivity.this, ConvertManageService.class));
 			}
 			String tag(){
 				StringBuilder sb=new StringBuilder();

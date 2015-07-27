@@ -31,7 +31,7 @@ public class ConvertQueueActivity extends ListActivity implements List<ConvertQu
 	public static WeakReference<ConvertQueueActivity> activity=new WeakReference(null);
 	public static ArrayList<ConvertData> q=new ArrayList<>();
 	public static List<ConvertData> list(){
-		return (ConvertQueueActivity.activity==null?ConvertQueueActivity.q:ConvertQueueActivity.activity.get());
+		return (ConvertQueueActivity.activity.get()==null?ConvertQueueActivity.q:ConvertQueueActivity.activity.get());
 	}
 	public static class ConvertData {
 		public java.lang.Process process;
